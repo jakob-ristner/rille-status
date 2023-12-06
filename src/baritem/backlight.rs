@@ -1,7 +1,17 @@
 use brightness::blocking::{brightness_devices, Brightness, BrightnessDevice};
 
+use super::BarItem;
+
 pub struct Backlight {
     device: Option<BrightnessDevice>,
+}
+impl BarItem for Backlight {
+    fn get_bar_text(&self) -> String {
+        if let Some(brightness) = self.get_brightness() {
+            return format!("󰖙 {}% ", brightness);
+        }
+        return String::from("");
+    }
 }
 
 impl Backlight {

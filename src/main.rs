@@ -10,8 +10,6 @@ mod baritem;
 
 fn main() {
     let _ = Command::new("xsetroot").args(["-name", "abc asd"]).output();
-    //
-    //
 
     let bat = Bat::new(0);
     let time = Time::new();
@@ -28,6 +26,7 @@ fn main() {
         for item in baritems.iter() {
             bar_text.push_str(&item.get_bar_text())
         }
+        bar_text.push_str(" ");
         let _ = Command::new("xsetroot").args(["-name", &bar_text]).output();
     }
 }
