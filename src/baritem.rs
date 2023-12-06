@@ -32,8 +32,15 @@ impl Color {
     pub fn as_str(&self) -> String {
         format!("#{:x}{:x}{:x}", self.r, self.g, self.b)
     }
+
+    pub fn apply_fg(&self) -> String {
+        format!("^c{}^", self.as_str())
+    }
+    pub fn apply_bg(&self) -> String {
+        format!("^b{}^", self.as_str())
+    }
 }
 
 pub fn regtangle(x: u32, y: u32, w: u32, h: u32, col: &str) -> String {
-    format!("^c{}^^r{},{},{},{}^^f{}^^d^", col, x, y, w, h, w)
+    format!("^c{}^^r{},{},{},{}^^f{}^", col, x, y, w, h, w)
 }

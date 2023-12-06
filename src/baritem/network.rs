@@ -45,7 +45,6 @@ impl Network {
     }
 
     pub fn get_state(&self) -> NetworkState {
-        let link = self.link_quality(); // TEST
         self.try_get_state().unwrap_or(NetworkState::Down)
     }
 

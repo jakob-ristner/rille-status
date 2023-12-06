@@ -39,9 +39,10 @@ impl Bat {
         bail!("Could not find battery")
     }
 
-    pub fn charge_percent(&self) -> Option<f64> {
+    pub fn charge_percent(&self) -> Option<u32> {
         let bat = Self::get_bat(self.bat_id).ok()?;
-        Some(bat.state_of_charge().get::<percent>().into())
+        let float_percent: f64 = bat.state_of_charge().get::<percent>().into();
+        Some(float_percent as u32)
     }
 
     pub fn state(&self) -> Option<State> {

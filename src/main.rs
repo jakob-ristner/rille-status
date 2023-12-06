@@ -17,7 +17,7 @@ fn main() {
     let audio = Audio::new();
     let network = Network::new("wlp0s20f3");
 
-    let baritems: Vec<&dyn BarItem> = vec![&bat, &time, &backlight, &audio, &network];
+    let baritems: Vec<&dyn BarItem> = vec![&bat, &time, &audio, &network, &backlight];
 
     let mut bar_text = String::new();
     loop {
