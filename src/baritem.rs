@@ -16,6 +16,12 @@ pub struct Color {
     b: u8,
 }
 
+pub fn icon_from_percent(icons: &[char], percent: u32) -> &char {
+    // 100% will pick the first item in the array
+    let index = (percent as f64) * (icons.len() as f64 / 100.0);
+    &icons[(icons.len() - index as usize).min(icons.len() - 1)]
+}
+
 impl Color {
     pub fn from_rgb(r: u8, g: u8, b: u8) -> Self {
         Color { r, g, b }

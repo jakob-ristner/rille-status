@@ -1,22 +1,30 @@
-use std::process::Command;
-
 use crate::baritem::{
     audio::Audio, backlight::Backlight, charge::Bat, network::Network, time::Time,
 };
-
 use baritem::BarItem;
+use std::process::Command;
+use std::thread::sleep;
+use std::{sync::mpsc::channel, thread, time::Duration};
 
 mod baritem;
 
 fn main() {
-    let _ = Command::new("xsetroot").args(["-name", "abc asd"]).output();
-
     let bat = Bat::new(0);
     let time = Time::new();
     let backlight = Backlight::new("intel_backlight");
     let audio = Audio::new();
     let network = Network::new("wlp0s20f3");
 
+    // let (sender, receiver) = channel();
+    // thread::spawn(move || {
+    //     sender
+    //         .send("heavy computation 1")
+    //         .expect("receiver hung up :(");
+    //     thread::sleep(Duration::from_millis(500));
+    //     sender
+    //         .send("heavy computation 2")
+    //         .expect("receiver hung up :(");
+    // });
     let baritems: Vec<&dyn BarItem> = vec![&bat, &time, &audio, &network, &backlight];
 
     let mut bar_text = String::new();

@@ -1,10 +1,12 @@
 use anyhow::{bail, Result};
 use battery::{units::ratio::percent, Battery, Manager, State};
 
-use super::BarItem;
+use super::{icon_from_percent, BarItem};
 
 pub struct Bat {
     bat_id: usize,
+    icons: Vec<char>,
+    discharging_icon: char,
 }
 
 impl BarItem for Bat {
@@ -14,8 +16,8 @@ impl BarItem for Bat {
 
         if let (Some(state), Some(charge)) = (m_state, m_charge) {
             let icon = match state {
-                State::Discharging => "",
-                _ => "󰠠",
+                State::Discharging => icon_from_percent(&self.icons, charge),
+                _ => &self.discharging_icon,
             };
             return format!("{}  {}% ", icon, charge);
         }
@@ -25,7 +27,11 @@ impl BarItem for Bat {
 
 impl Bat {
     pub fn new(bat_id: usize) -> Self {
-        Bat { bat_id }
+        Bat {
+            bat_id,
+            icons: vec!['', '', '', '', ''],
+            discharging_icon: '󰠠',
+        }
     }
 
     fn get_bat(id: usize) -> Result<Battery> {
