@@ -25,7 +25,7 @@ impl BarItem for Network {
                 let m_essid = self.get_essid();
                 let m_link = self.link_quality();
                 if let (Some(essid), Some(link)) = (m_essid, m_link) {
-                    return format!("󰤨  {} {}%", essid, link);
+                    return format!("󰤨  {} {}% ", essid, link);
                 } else {
                     disconnected
                     // TODO print to stderr
@@ -46,7 +46,6 @@ impl Network {
 
     pub fn get_state(&self) -> NetworkState {
         let link = self.link_quality(); // TEST
-        dbg!(link);
         self.try_get_state().unwrap_or(NetworkState::Down)
     }
 

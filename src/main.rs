@@ -26,7 +26,6 @@ fn main() {
         for item in baritems.iter() {
             bar_text.push_str(&item.get_bar_text())
         }
-        bar_text.push_str(" ");
         let _ = Command::new("xsetroot").args(["-name", &bar_text]).output();
     }
 }
