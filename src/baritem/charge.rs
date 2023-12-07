@@ -17,6 +17,7 @@ impl BarItem for Bat {
 
         if let (Some(state), Some(charge)) = (m_state, m_charge) {
             let icon = match state {
+                State::Full => &'',
                 State::Discharging => icon_from_percent(&self.icons, charge),
                 _ => &self.discharging_icon,
             };
