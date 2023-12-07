@@ -1,12 +1,13 @@
 use anyhow::{bail, Result};
 use battery::{units::ratio::percent, Battery, Manager, State};
 
-use super::{icon_from_percent, BarItem};
+use super::{icon_from_percent, BarItem, Color};
 
 pub struct Bat {
     bat_id: usize,
     icons: Vec<char>,
     discharging_icon: char,
+    color: Color,
 }
 
 impl BarItem for Bat {
@@ -19,7 +20,7 @@ impl BarItem for Bat {
                 State::Discharging => icon_from_percent(&self.icons, charge),
                 _ => &self.discharging_icon,
             };
-            return format!("{}  {}% ", icon, charge);
+            return format!("{}{}  {}% ", self.color.apply_fg(), icon, charge);
         }
         return String::from("");
     }
@@ -29,8 +30,9 @@ impl Bat {
     pub fn new(bat_id: usize) -> Self {
         Bat {
             bat_id,
-            icons: vec!['', '', '', '', ''],
+            icons: vec!['', '', '', '', ''],
             discharging_icon: '󰠠',
+            color: Color::nord_green(),
         }
     }
 

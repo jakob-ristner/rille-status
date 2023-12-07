@@ -1,3 +1,5 @@
+use std::{cmp::min, time::Duration};
+
 pub mod audio;
 pub mod backlight;
 pub mod charge;
@@ -11,6 +13,7 @@ pub trait BarItem {
     fn get_bar_text(&mut self) -> String;
 }
 
+#[derive(Debug)]
 pub struct Color {
     r: u8,
     g: u8,
@@ -18,9 +21,8 @@ pub struct Color {
 }
 
 pub fn icon_from_percent(icons: &[char], percent: u32) -> &char {
-    // 100% will pick the first item in the array
-    let index = (percent as f64) * (icons.len() as f64 / 100.0);
-    &icons[(icons.len() - index as usize).min(icons.len() - 1)]
+    let act_index = (((percent as f64) / 100.0) * (icons.len() - 1) as f64) as usize;
+    &icons[act_index]
 }
 
 impl Color {
@@ -28,11 +30,53 @@ impl Color {
         Color { r, g, b }
     }
 
-    pub fn white() -> Self {
+    pub fn nord_white() -> Self {
         Color {
-            r: 255,
-            g: 255,
-            b: 255,
+            r: 216,
+            g: 222,
+            b: 233,
+        }
+    }
+    pub fn nord_red() -> Self {
+        Color {
+            r: 191,
+            g: 97,
+            b: 106,
+        }
+    }
+    pub fn nord_orange() -> Self {
+        Color {
+            r: 208,
+            g: 135,
+            b: 112,
+        }
+    }
+    pub fn nord_yellow() -> Self {
+        Color {
+            r: 235,
+            g: 203,
+            b: 129,
+        }
+    }
+    pub fn nord_green() -> Self {
+        Color {
+            r: 163,
+            g: 190,
+            b: 140,
+        }
+    }
+    pub fn nord_purple() -> Self {
+        Color {
+            r: 180,
+            g: 142,
+            b: 173,
+        }
+    }
+    pub fn nord_blue() -> Self {
+        Color {
+            r: 129,
+            g: 161,
+            b: 193,
         }
     }
 
