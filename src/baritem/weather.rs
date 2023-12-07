@@ -13,16 +13,16 @@ pub struct Weather {
     ch: Receiver<Option<String>>,
     bar_text: Option<String>,
     color: Color,
-    region: String,
 }
 
 fn get_data(region: &str) -> Option<String> {
     let command = Command::new("curl")
-        .arg("wttr.in/Gothenburg?format=1")
+        .arg(format!("wttr.in/{}?format=1", region))
         .output()
         .ok()?;
     let text = String::from_utf8(command.stdout).ok()?.trim().to_string();
-    Some(text.replace("  ", " "))
+    dbg!(text.chars().collect::<Vec<char>>());
+    Some(text.split_whitespace().collect::<Vec<&str>>().join(" "))
 }
 
 impl Weather {
@@ -37,7 +37,6 @@ impl Weather {
             ch: receiver,
             bar_text: None,
             color: Color::nord_red(),
-            region: String::from("Gothenburg"),
         }
     }
 
