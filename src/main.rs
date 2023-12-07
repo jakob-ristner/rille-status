@@ -4,8 +4,6 @@ use crate::baritem::{
 use baritem::spotify::Spotify;
 use baritem::BarItem;
 use std::process::Command;
-use std::time::SystemTime;
-
 mod baritem;
 
 fn main() {

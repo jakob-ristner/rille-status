@@ -116,7 +116,6 @@ impl BarItem for Spotify {
                 } else {
                     text.clone()
                 };
-                let chars = text;
                 format!("{}󰓇  {} ", self.color.apply_fg(), out)
             }
             None => String::from(""),

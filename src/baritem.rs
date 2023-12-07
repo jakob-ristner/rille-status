@@ -1,5 +1,3 @@
-use std::{cmp::min, time::Duration};
-
 pub mod audio;
 pub mod backlight;
 pub mod charge;
@@ -26,10 +24,6 @@ pub fn icon_from_percent(icons: &[char], percent: u32) -> &char {
 }
 
 impl Color {
-    pub fn from_rgb(r: u8, g: u8, b: u8) -> Self {
-        Color { r, g, b }
-    }
-
     pub fn nord_white() -> Self {
         Color {
             r: 216,
