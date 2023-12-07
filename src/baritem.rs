@@ -4,6 +4,7 @@ pub mod charge;
 pub mod network;
 pub mod spotify;
 pub mod time;
+pub mod weather;
 
 pub static BAR_HEIGHT: u32 = 62;
 
