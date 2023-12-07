@@ -5,7 +5,7 @@ use super::BarItem;
 pub struct Time {}
 
 impl BarItem for Time {
-    fn get_bar_text(&self) -> String {
+    fn get_bar_text(&mut self) -> String {
         let time = self.curr_time();
         return format!("󰥔  {} ", time);
     }

@@ -9,7 +9,7 @@ pub struct Backlight {
     icons: Vec<char>,
 }
 impl BarItem for Backlight {
-    fn get_bar_text(&self) -> String {
+    fn get_bar_text(&mut self) -> String {
         if let Some(brightness) = self.get_brightness() {
             return format!("{} ", icon_from_percent(&self.icons, brightness));
         }

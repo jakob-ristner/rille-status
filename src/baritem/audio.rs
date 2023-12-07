@@ -30,7 +30,7 @@ impl Audio {
     }
 }
 impl BarItem for Audio {
-    fn get_bar_text(&self) -> String {
+    fn get_bar_text(&mut self) -> String {
         let amixer = Command::new("amixer").args(["sget", "Master"]).output();
 
         if let Ok(out) = amixer {

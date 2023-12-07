@@ -2,12 +2,13 @@ pub mod audio;
 pub mod backlight;
 pub mod charge;
 pub mod network;
+pub mod spotify;
 pub mod time;
 
 pub static BAR_HEIGHT: u32 = 62;
 
 pub trait BarItem {
-    fn get_bar_text(&self) -> String;
+    fn get_bar_text(&mut self) -> String;
 }
 
 pub struct Color {

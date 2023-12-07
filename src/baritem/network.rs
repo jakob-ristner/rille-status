@@ -16,7 +16,7 @@ pub enum NetworkState {
 }
 
 impl BarItem for Network {
-    fn get_bar_text(&self) -> String {
+    fn get_bar_text(&mut self) -> String {
         //TODO clean up add id to network
         let state = self.get_state();
         let disconnected = String::from("󰤭  disconnected ");

@@ -10,7 +10,7 @@ pub struct Bat {
 }
 
 impl BarItem for Bat {
-    fn get_bar_text(&self) -> String {
+    fn get_bar_text(&mut self) -> String {
         let m_state = self.state();
         let m_charge = self.charge_percent();
 
