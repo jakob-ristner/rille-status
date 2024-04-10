@@ -21,7 +21,6 @@ fn get_data(region: &str) -> Option<String> {
         .output()
         .ok()?;
     let text = String::from_utf8(command.stdout).ok()?.trim().to_string();
-    dbg!(text.chars().collect::<Vec<char>>());
     Some(text.split_whitespace().collect::<Vec<&str>>().join(" "))
 }
 

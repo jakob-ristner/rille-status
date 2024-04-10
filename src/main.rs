@@ -5,6 +5,7 @@ use baritem::spotify::Spotify;
 use baritem::weather::Weather;
 use baritem::BarItem;
 use std::process::Command;
+use std::thread::sleep;
 mod baritem;
 
 fn main() {
@@ -28,6 +29,7 @@ fn main() {
 
     let mut bar_text = String::new();
     loop {
+        sleep(std::time::Duration::from_millis(100));
         bar_text.clear();
         bar_text.push_str("                    ^c#D8DEE9^");
         for item in baritems.iter_mut() {

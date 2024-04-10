@@ -21,20 +21,34 @@ pub struct Spotify {
 }
 
 #[derive(Debug)]
-struct MetaData {
+struct SpotifyMetaData {
     title: String,
     album: String,
     artist: String,
 }
-impl ToString for MetaData {
+
+#[derive(Debug)]
+struct BrowserMetaData {
+    title: String,
+    artist: String,
+}
+
+impl ToString for BrowserMetaData {
+    fn to_string(&self) -> String {
+        format!("{} - {}", self.title, self.artist)
+    }
+}
+
+impl ToString for SpotifyMetaData {
     fn to_string(&self) -> String {
         format!("{} - {}", self.title, self.album)
     }
 }
 
-fn get_data(title_re: &Regex, artist_re: &Regex, album_re: &Regex) -> Option<MetaData> {
+fn get_data(title_re: &Regex, artist_re: &Regex, album_re: &Regex) -> Option<Box<dyn ToString>> {
     let command = Command::new("playerctl").args(["metadata"]).output();
     let text = String::from_utf8(command.ok()?.stdout).ok()?;
+    // println!("{}", text);
     let title = title_re
         .captures(&text)?
         .name("title")?
@@ -50,11 +64,17 @@ fn get_data(title_re: &Regex, artist_re: &Regex, album_re: &Regex) -> Option<Met
         .name("album")?
         .as_str()
         .to_string();
-    Some(MetaData {
-        title,
-        album,
-        artist,
-    })
+    if text.contains("ncspot") {
+        return Some(Box::new(SpotifyMetaData {
+            title,
+            album,
+            artist,
+        }));
+    } else if text.contains("brave") {
+        return Some(Box::new(BrowserMetaData { title, artist }));
+    } else {
+        return None;
+    }
 }
 
 impl Spotify {
